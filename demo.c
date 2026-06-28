@@ -17,11 +17,12 @@ int main (int argc, char *argv[])
 //#define LOCAL_OFFSET_IN_MINS 0  // UTC / GMT0
 //#define TZ_NAME "UTC"
 
-//#define LOCAL_OFFSET_IN_MINS (-7 * 60)  // Los Angeles DST
-//#define TZ_NAME "PDT"
+//#define LOCAL_OFFSET_IN_MINS (-8 * 60)  // Los Angeles Winter time
+//#define TZ_NAME "PST"
 
-#define LOCAL_OFFSET_IN_MINS (-8 * 60)  // Los Angeles Winter time
-#define TZ_NAME "PST"
+#define LOCAL_OFFSET_IN_MINS (-7 * 60)  // Los Angeles DST
+#define TZ_NAME "PDT"
+
 
     utc_time = time(NULL);
     printf("utc_time:           %d\n", utc_time);
