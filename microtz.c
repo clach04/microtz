@@ -69,7 +69,7 @@ static int is_leap(int year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
-static time_t mktime_utc(int year, int month, int day, int hour, int min, int sec) {
+time_t mktime_utc(int year, int month, int day, int hour, int min, int sec) {
     struct tm t;
     memset(&t, 0, sizeof(t));
     t.tm_year = year - 1900;

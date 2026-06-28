@@ -24,6 +24,7 @@ typedef struct {
 } microtz_info;
 
 microtz_info microtz_parse(const char *posix_tz);
+time_t mktime_utc(int year, int month, int day, int hour, int min, int sec);
 int microtz_offset(const microtz_info *info, time_t now);
 
 #endif
