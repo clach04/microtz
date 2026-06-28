@@ -24,14 +24,16 @@ static void parse_name_offset(const char *s, microtz_info *info) {
 
     info->offset = 0;
     if (*p == '-') {
-        info->offset = parse_num(&p);
-        info->offset *= 3600;
+        p++;
+        info->offset = parse_num(&p) * 3600;
+        if (*p == ':') { p++; info->offset += parse_num(&p) * 60; }
     } else if (*p == '+') {
-        info->offset = -parse_num(&p);
-        info->offset *= 3600;
+        p++;
+        info->offset = -(parse_num(&p) * 3600);
+        if (*p == ':') { p++; info->offset -= parse_num(&p) * 60; }
     } else if (*p >= '0' && *p <= '9') {
-        info->offset = -parse_num(&p);
-        info->offset *= 3600;
+        info->offset = -(parse_num(&p) * 3600);
+        if (*p == ':') { p++; info->offset -= parse_num(&p) * 60; }
     }
 
     n = info->dst_name;

@@ -18,7 +18,7 @@ int main (int argc, char *argv[])
     //microtz_info tz = microtz_parse("UTC");
     //microtz_info tz = microtz_parse("PST8PDT,M3.2.0,M11.1.0");
     microtz_info tz = microtz_parse("PST8PDT,M3.2.0/2:00:00,M11.1.0/2:00:00");
-    //microtz_info tz = microtz_parse("IST-5:30");  // FIXME not implemented / broken
+    //microtz_info tz = microtz_parse("IST-5:30");
     int local_offset_mins = microtz_offset(&tz, time(NULL));
     const char *tz_name = (local_offset_mins != tz.offset / 60) ? tz.dst_name : tz.name;
 
