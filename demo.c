@@ -22,6 +22,9 @@ int main (int argc, char *argv[])
     int local_offset_mins = microtz_offset(&tz, time(NULL));
     const char *tz_name = (local_offset_mins != tz.offset / 60) ? tz.dst_name : tz.name;
 
+    printf("tz_name:          >%s<\n", tz_name);
+    printf("local_offset_mins: %d\n\n", local_offset_mins);
+
     utc_time = time(NULL);
     printf("utc_time:           %d\n", utc_time);
     converted_local_tm = utc_time + (60 * local_offset_mins);
