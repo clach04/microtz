@@ -24,3 +24,7 @@ It's expected to use microtz with the stdlib `time.h`:
 
 
 NOTE Under Windows CMD will get ANSI escape sequences, for now recommend running under Terminal (or similar).
+
+## Acknowledgements
+
+  * Kudos to https://github.com/sheredom/utest.h which is the test suite framework used for this project
