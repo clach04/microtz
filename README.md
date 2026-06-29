@@ -2,6 +2,8 @@
 
 microtz implements a small POSIX TZ parser suitable for use in embedded environments where IANA is not realistic.
 
+Also see https://github.com/clach04/py-posix_tz for a similar MicroPython project.
+
 POSIX TZ predates IANA. Example
 
     TZ="PST8PDT,M3.2.0,M11.1.0"
