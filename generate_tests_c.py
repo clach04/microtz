@@ -20,8 +20,37 @@ TIMEZONES = {
 TEST_FILE = 'test_microtz.c'
 
 TEST_TIMESTAMPS = [
-    ('2026-06-28 19:44:14', 'summer'),
-    ('2025-01-01 00:00:00', 'winter'),
+    # 2026 Interesting Los Angeles winter to DST transition period
+    ("2026-03-08 09:00:00", 'LA_winter_to_DST'),
+    ("2026-03-08 09:59:59", 'LA_winter_to_DST'),
+    ("2026-03-08 10:00:00", 'LA_winter_to_DST'),
+    ("2026-03-08 11:00:00", 'LA_winter_to_DST'),
+
+    # 2026 Interesting Los Angeles DST over transition period
+    ("2026-11-01 07:00:00", 'London_DST_to_winter'),
+    ("2026-11-01 08:00:00", 'London_DST_to_winter'),
+    ("2026-11-01 08:59:59", 'London_DST_to_winter'),
+    ("2026-11-01 09:00:00", 'London_DST_to_winter'),
+    ("2026-11-01 10:00:00", 'London_DST_to_winter'),
+
+
+    # 2026 Interesting London winter to DST transition period
+    ("2026-03-29 00:00:00", 'London_winter_to_DST'),
+    ("2026-03-29 00:59:59", 'London_winter_to_DST'),
+    ("2026-03-29 01:00:00", 'London_winter_to_DST'),
+    ("2026-03-29 01:59:59", 'London_winter_to_DST'),
+    ("2026-03-29 02:00:00", 'London_winter_to_DST'),
+    ("2026-03-29 02:59:59", 'London_winter_to_DST'),
+    ("2026-03-29 03:00:00", 'London_winter_to_DST'),
+    ("2026-03-29 04:00:00", 'London_winter_to_DST'),
+
+    # 2026 Interesting London DST over transition period
+    ("2026-10-24 22:59:59", 'London_DST_to_winter'),
+    ("2026-10-24 23:00:00", 'London_DST_to_winter'),
+    ("2026-10-24 23:59:59", 'London_DST_to_winter'),
+    ("2026-10-25 00:00:00", 'London_DST_to_winter'),
+    ("2026-10-25 01:00:00", 'London_DST_to_winter'),
+    ("2026-10-25 02:00:00", 'London_DST_to_winter'),
 ]
 
 
@@ -50,13 +79,15 @@ def generate_tests():
     for tz_string, tz_name in TIMEZONES.items():
         parsed = parse_tz(tz_string)
         for ts_str, season in TEST_TIMESTAMPS:
-            ts = mktime(timestamp_to_tuple(ts_str))
+            t = timestamp_to_tuple(ts_str)
+            ts = mktime(t)
             tt = localtime(ts, parsed)
             is_dst = tt[8]
             if is_dst:
                 expected_offset = (parsed.offset + 3600) // 60
             else:
                 expected_offset = parsed.offset // 60
+            season += '_%04d_%02d_%02d__%02d_%02d_%02d' % (t[0], t[1], t[2], t[3], t[4], t[5])
             tests.append(generate_offset_test(tz_string, tz_name, ts_str, season, expected_offset))
     return '\n\n'.join(tests)
 
@@ -72,6 +103,7 @@ def update_test_file():
     new_tests = generate_tests()
     new_content = content[:idx] + new_tests + '\n\n' + content[idx:]
     preview = True
+    #preview = False
     if preview:
         print('%s' % (new_content,))
     else:
