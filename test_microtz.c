@@ -138,4 +138,74 @@ UTEST(microtz, usa_losangeles_rule_end) {
     ASSERT_EQ(0, info.end.sec);
 }
 
+UTEST(microtz, china_offset_summer) {
+    microtz_info info = microtz_parse("CST-8");
+    time_t ts = mktime_utc(2026, 6, 28, 19, 44, 14);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(480, off);
+}
+
+UTEST(microtz, china_offset_winter) {
+    microtz_info info = microtz_parse("CST-8");
+    time_t ts = mktime_utc(2025, 1, 1, 0, 0, 0);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(480, off);
+}
+
+UTEST(microtz, india_offset_summer) {
+    microtz_info info = microtz_parse("IST-5:30");
+    time_t ts = mktime_utc(2026, 6, 28, 19, 44, 14);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(330, off);
+}
+
+UTEST(microtz, india_offset_winter) {
+    microtz_info info = microtz_parse("IST-5:30");
+    time_t ts = mktime_utc(2025, 1, 1, 0, 0, 0);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(330, off);
+}
+
+UTEST(microtz, germany_offset_summer) {
+    microtz_info info = microtz_parse("CET-1CEST,M3.5.0,M10.5.0/3:00:00");
+    time_t ts = mktime_utc(2026, 6, 28, 19, 44, 14);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(120, off);
+}
+
+UTEST(microtz, germany_offset_winter) {
+    microtz_info info = microtz_parse("CET-1CEST,M3.5.0,M10.5.0/3:00:00");
+    time_t ts = mktime_utc(2025, 1, 1, 0, 0, 0);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(60, off);
+}
+
+UTEST(microtz, uk_offset_summer) {
+    microtz_info info = microtz_parse("GMT0BST,M3.5.0/1:00:00,M10.5.0/2:00:00");
+    time_t ts = mktime_utc(2026, 6, 28, 19, 44, 14);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(60, off);
+}
+
+UTEST(microtz, uk_offset_winter) {
+    microtz_info info = microtz_parse("GMT0BST,M3.5.0/1:00:00,M10.5.0/2:00:00");
+    time_t ts = mktime_utc(2025, 1, 1, 0, 0, 0);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(0, off);
+}
+
+UTEST(microtz, usa_texas_offset_summer) {
+    microtz_info info = microtz_parse("CST6CDT,M3.2.0,M11.1.0");
+    time_t ts = mktime_utc(2026, 6, 28, 19, 44, 14);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(-300, off);
+}
+
+UTEST(microtz, usa_texas_offset_winter) {
+    microtz_info info = microtz_parse("CST6CDT,M3.2.0,M11.1.0");
+    time_t ts = mktime_utc(2025, 1, 1, 0, 0, 0);
+    int off = microtz_offset(&info, ts);
+    ASSERT_EQ(-360, off);
+}
+
 UTEST_MAIN()

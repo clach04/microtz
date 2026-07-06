@@ -54,3 +54,7 @@ dkms.conf
 # Backup files
 *.bak
 *~
+
+# env scripts
+gcc_path.bat
+setenv.bat
