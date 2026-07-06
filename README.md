@@ -10,6 +10,8 @@ POSIX TZ predates IANA. Example
     TZ="PST8PDT,M3.2.0/2:00:00,M11.1.0/2:00:00"
     TZ="IST-5:30"
 
+For more example rules see https://github.com/clach04/posix_tz_db
+
 It's expected to use microtz with the stdlib `time.h`:
 
   * `time()`
